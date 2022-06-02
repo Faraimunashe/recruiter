@@ -21,7 +21,11 @@ Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->midd
 
 
 Route::group(['middleware' => ['auth', 'role:user']], function () {
-    Route::get('/users/vacancies', 'App\Http\Controllers\user\DashboardController@index')->name('user-dashboard');
+    Route::get('/users/vacancies', 'App\Http\Controllers\users\DashboardController@index')->name('user-dashboard');
+
+    Route::get('/users/portifolio', 'App\Http\Controllers\users\PortifolioController@index')->name('user-portifolio');
+    Route::get('/users/add/portifolio', 'App\Http\Controllers\users\PortifolioController@add')->name('add-portifolio');
+    Route::post('/portifolio', 'App\Http\Controllers\users\PortifolioController@post')->name('user-add-portifolio');
 });
 
 

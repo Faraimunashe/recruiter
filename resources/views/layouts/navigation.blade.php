@@ -27,10 +27,10 @@
                             Interviews
                         </a>
                     @else
-                        <a href="" class="py-4 px-2 text-blue-500 border-b-4 border-blue-500 font-semibold ">
+                        <a href="{{ route('user-dashboard') }}" class="py-4 px-2 text-blue-500 border-b-4 border-blue-500 font-semibold ">
                             Vacancies
                         </a>
-                        <a href="" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">
+                        <a href="{{ route('user-portifolio') }}" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">
                             Portifolio
                         </a>
                         <a href="" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">
@@ -43,8 +43,7 @@
             <div class="hidden md:flex items-center space-x-3 ">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button
-                        class="py-2 px-2 font-medium text-white bg-blue-500 rounded hover:bg-red-400 transition duration-300">
+                    <button class="py-2 px-2 font-medium text-white bg-blue-300 rounded hover:bg-red-600 transition duration-300">
                         Logout
                     </button>
                 </form>
