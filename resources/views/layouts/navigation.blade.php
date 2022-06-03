@@ -17,10 +17,10 @@
                         <a href="" class="py-4 px-2 text-blue-500 border-b-4 border-blue-500 font-semibold ">
                             Dashboard
                         </a>
-                        <a href="" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">
+                        <a href="{{ route('admin-applications') }}" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">
                             Applications
                         </a>
-                        <a href="" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">
+                        <a href="{{ route('admin-vacancies') }}" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">
                             Vacancies
                         </a>
                         <a href="" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">

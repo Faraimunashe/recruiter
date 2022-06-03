@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Portifolio;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
+use Exception;
 
 class PortifolioController extends Controller
 {
@@ -55,5 +56,34 @@ class PortifolioController extends Controller
         }
 
         return redirect()->back()->with('success', 'You have successfully added your details');
+    }
+
+    public function uploadCV(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:pdf|max:2048'
+        ]);
+
+        $fileName = time().'.'.$request->file->extension();
+        try{
+            $request->file->move(public_path('cvs'), $fileName);
+        }catch(Exception $e)
+        {
+            return redirect()->back()->with('error', $e);
+        }
+
+        try{
+            $cv = new CV();
+
+            $cv->user_id = Auth::id();
+            $cv->filename = $fileName;
+
+            $cv->save();
+        }catch(QueryException $e)
+        {
+            return redirect()->back()->with('error', $e);
+        }
+
+        return redirect()->back()->with('success','You have successfully uploaded your cv');
     }
 }

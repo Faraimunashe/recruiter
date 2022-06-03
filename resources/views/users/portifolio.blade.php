@@ -1,4 +1,5 @@
 <x-app-layout>
+
     <div class="container mx-auto my-5 p-5">
         <div class="md:flex no-wrap md:-mx-2 ">
             <!-- Left Side -->
@@ -7,7 +8,7 @@
                 <div class="bg-white p-3 border-t-4 border-green-400">
                     <div class="image overflow-hidden">
                         <img class="h-auto w-full mx-auto"
-                            src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
+                            src="{{ asset('images/user.png') }}"
                             alt="">
                     </div>
                     <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{ $portifolio->firstname }} {{ $portifolio->lastname }}</h1>
@@ -43,6 +44,35 @@
                         </span>
                         <span class="tracking-wide">Personal Information</span>
                     </div>
+                    @if (Session::has('error'))
+                        <div class="py-8 px-6">
+                            <div class="p-6 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
+                                <div class="flex items-center">
+                                    <h3 class="text-red-800 font-medium">{{ Session::get('error') }}</h3>
+                                    <button class="ml-auto">
+                                        <svg class="text-red-800" width="12" height="12" viewbox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6.93341 6.00008L11.1334 1.80008C11.4001 1.53341 11.4001 1.13341 11.1334 0.866748C10.8667 0.600081 10.4667 0.600081 10.2001 0.866748L6.00008 5.06675L1.80008 0.866748C1.53341 0.600081 1.13341 0.600081 0.866748 0.866748C0.600082 1.13341 0.600082 1.53341 0.866748 1.80008L5.06675 6.00008L0.866748 10.2001C0.733415 10.3334 0.666748 10.4667 0.666748 10.6667C0.666748 11.0667 0.933415 11.3334 1.33341 11.3334C1.53341 11.3334 1.66675 11.2667 1.80008 11.1334L6.00008 6.93341L10.2001 11.1334C10.3334 11.2667 10.4667 11.3334 10.6667 11.3334C10.8667 11.3334 11.0001 11.2667 11.1334 11.1334C11.4001 10.8667 11.4001 10.4667 11.1334 10.2001L6.93341 6.00008Z" fill="currentColor"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @if (Session::has('success'))
+                        <div class="py-8 px-6">
+                            <div class="p-6 bg-green-50 border-l-4 border-green-500 rounded-r-lg">
+                                <div class="flex items-center">
+                                    <h3 class="text-green-800 font-medium">{{ Session::get('success') }}</h3>
+                                    <button class="ml-auto">
+                                        <svg class="text-green-800" width="12" height="12" viewbox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6.93341 6.00008L11.1334 1.80008C11.4001 1.53341 11.4001 1.13341 11.1334 0.866748C10.8667 0.600081 10.4667 0.600081 10.2001 0.866748L6.00008 5.06675L1.80008 0.866748C1.53341 0.600081 1.13341 0.600081 0.866748 0.866748C0.600082 1.13341 0.600082 1.53341 0.866748 1.80008L5.06675 6.00008L0.866748 10.2001C0.733415 10.3334 0.666748 10.4667 0.666748 10.6667C0.666748 11.0667 0.933415 11.3334 1.33341 11.3334C1.53341 11.3334 1.66675 11.2667 1.80008 11.1334L6.00008 6.93341L10.2001 11.1334C10.3334 11.2667 10.4667 11.3334 10.6667 11.3334C10.8667 11.3334 11.0001 11.2667 11.1334 11.1334C11.4001 10.8667 11.4001 10.4667 11.1334 10.2001L6.93341 6.00008Z" fill="currentColor"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <div class="text-gray-700">
                         <div class="grid md:grid-cols-2 text-sm">
                             <div class="grid grid-cols-2">
@@ -78,13 +108,13 @@
                         </div>
                     </div>
                     <div class="flex">
-                        <button class="block text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">
+                        <button data-bs-toggle="modal" data-bs-target="#cvmodal" id="cvbtn" class="block text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">
                             Upload CV
                         </button>
-                        <button class="block text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">
+                        <button id="expbtn" class="block text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">
                             Add Experience
                         </button>
-                        <button class="block text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">
+                        <button id="edubtn" class="block text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">
                             Add Education
                         </button>
                     </div>
@@ -158,4 +188,58 @@
             </div>
         </div>
     </div>
+
+
+<!--CV Modal -->
+<div class="modal fade fixed top-0 left-0 hidden w-1/2 h-full outline-none overflow-x-hidden overflow-y-auto ml-28 mt-20 mr-20 justify-center" id="cvmodal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-modal="true" aria-hidden="true">
+    <div class="modal-dialog relative w-auto pointer-events-none">
+        <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-gray-500 bg-clip-padding rounded-md outline-none text-current">
+            <div class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+                <h5 class="text-xl font-medium leading-normal text-gray-800" id="exampleModalLabel">Upload CV</h5>
+                <button type="button" class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <form action="{{ route('user-cv') }}" method="POST" enctype="multipart/form-data">
+                <div class="modal-body relative p-4">
+                    @csrf
+                    <div class="relative z-0 w-full mb-6">
+                        <input type="file" name="file" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="exampleInput8" placeholder="phone" required>
+                    </div>
+                </div>
+                <div class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+                    <button type="button" id="closebtn" class="px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" class="px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
+                        Upload
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.addEventListener
+    ('DOMContentLoaded', () => {
+        const cvmodal = document.querySelector('#cvmodal')
+        const cvbtn = document.querySelector('#cvbtn')
+        const closebtn = document.querySelector('#closebtn')
+
+        const expmodal = document.querySelector('#expmodal')
+        const expbtn = document.querySelector('#expbtn')
+
+        cvbtn.addEventListener('click', () => {
+            cvmodal.classList.remove('hidden')
+            cvmodal.classList.add('show')
+        })
+
+        closebtn.addEventListener('click', () => {
+            cvmodal.classList.remove('flex')
+            cvmodal.classList.add('hidden')
+        })
+    })
+</script>
 </x-app-layout>
