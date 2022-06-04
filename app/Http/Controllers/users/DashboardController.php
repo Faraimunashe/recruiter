@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Vacancy;
 use App\Models\Application;
+use App\Models\CV;
+use App\Models\Portifolio;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,6 +23,18 @@ class DashboardController extends Controller
 
     public function apply($id)
     {
+        $port = Portifolio::where('user_id', Auth::id())->first();
+        if(is_null($port))
+        {
+            return redirect()->back()->with('error', 'User must fill in portifolio first');
+        }
+
+        $cv = CV::where('user_id', Auth::id())->first();
+        if(is_null($cv))
+        {
+            return redirect()->back()->with('error', 'User must upload cv first');
+        }
+
         $vac = Vacancy::find($id);
         if(is_null($vac))
         {

@@ -28,6 +28,8 @@ Route::group(['middleware' => ['auth', 'role:user']], function () {
     Route::get('/users/add/portifolio', 'App\Http\Controllers\users\PortifolioController@add')->name('add-portifolio');
     Route::post('/portifolio', 'App\Http\Controllers\users\PortifolioController@post')->name('user-add-portifolio');
     Route::post('/cv', 'App\Http\Controllers\users\PortifolioController@uploadCV')->name('user-cv');
+
+    Route::get('/users/applications', 'App\Http\Controllers\users\ApplicationsController@index')->name('user-applications');
 });
 
 
@@ -40,7 +42,11 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/admin/delete/vacancy/{id}', 'App\Http\Controllers\admin\VacancyController@delete')->name('admin-delete-vacancy');
 
     Route::get('/admin/applications', 'App\Http\Controllers\admin\ApplicationsController@index')->name('admin-applications');
-    Route::get('/admin/invite/{id}', 'App\Http\Controllers\admin\ApplicationsController@invite')->name('admin-application-invite');
+    Route::post('/admin/invite', 'App\Http\Controllers\admin\ApplicationsController@invite')->name('admin-application-invite');
+    Route::get('/admin/interview/{id}', 'App\Http\Controllers\admin\ApplicationsController@interview')->name('admin-application-interview');
+    Route::get('/admin/decline/{id}', 'App\Http\Controllers\admin\ApplicationsController@decline')->name('admin-application-decline');
+
+    Route::get('/admin/interviews', 'App\Http\Controllers\admin\InterviewController@index')->name('admin-interviews');
 });
 
 

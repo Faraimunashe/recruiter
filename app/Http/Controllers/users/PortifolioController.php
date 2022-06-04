@@ -5,6 +5,7 @@ namespace App\Http\Controllers\users;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Portifolio;
+use App\Models\CV;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Exception;
@@ -30,6 +31,11 @@ class PortifolioController extends Controller
 
     public function post(Request $request)
     {
+        $port = Portifolio::where('user_id', Auth::id())->first();
+        if(!is_null($port))
+        {
+            return redirect()->back()->with('error', 'User already has a portifolio');
+        }
         $request->validate([
             'firstname'=>'required|string',
             'lastname'=>'required|string',
@@ -63,6 +69,17 @@ class PortifolioController extends Controller
         $request->validate([
             'file' => 'required|mimes:pdf|max:2048'
         ]);
+
+        $uploaded = CV::where('user_id', Auth::id())->first();
+        if(!is_null($uploaded))
+        {
+            try{
+                $uploaded->delete();
+            }catch(QueryException $e)
+            {
+                return redirect()->back()->with('error', $e->getMessage());
+            }
+        }
 
         $fileName = time().'.'.$request->file->extension();
         try{

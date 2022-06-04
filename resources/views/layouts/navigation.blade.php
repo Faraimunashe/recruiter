@@ -14,7 +14,7 @@
                 <!-- Primary Navbar items -->
                 <div class="hidden md:flex items-center space-x-1">
                     @if (Auth::user()->hasRole('admin'))
-                        <a href="" class="py-4 px-2 text-blue-500 border-b-4 border-blue-500 font-semibold ">
+                        <a href="{{ route('admin-dashboard') }}" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">
                             Dashboard
                         </a>
                         <a href="{{ route('admin-applications') }}" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">
@@ -23,18 +23,21 @@
                         <a href="{{ route('admin-vacancies') }}" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">
                             Vacancies
                         </a>
-                        <a href="" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">
+                        <a href="{{ route('admin-interviews') }}" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">
                             Interviews
                         </a>
                     @else
-                        <a href="{{ route('user-dashboard') }}" class="py-4 px-2 text-blue-500 border-b-4 border-blue-500 font-semibold ">
+                        <a href="{{ route('user-dashboard') }}" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">
                             Vacancies
+                        </a>
+                        <a href="{{ route('user-applications') }}" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">
+                            My Applications
                         </a>
                         <a href="{{ route('user-portifolio') }}" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">
                             Portifolio
                         </a>
-                        <a href="" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">
-                            My Applications
+                        <a href="{{ route('add-portifolio') }}" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">
+                            Add Portifolio
                         </a>
                     @endif
                 </div>

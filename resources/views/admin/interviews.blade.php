@@ -5,7 +5,7 @@
             <div class="rounded-t mb-0 px-4 py-3 border-0">
                 <div class="flex flex-wrap items-center">
                     <div class="relative w-full px-4 max-w-full flex-grow flex-1 ">
-                        <h3 class="font-semibold text-lg text-gray-900">Applications Table</h3>
+                        <h3 class="font-semibold text-lg text-gray-900">Interviews Table</h3>
                     </div>
                 </div>
             </div>
@@ -52,13 +52,10 @@
                                 Position
                             </th>
                             <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-gray-800 text-gray-300 border-gray-700">
-                                Status
+                                Date
                             </th>
                             <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-gray-800 text-gray-300 border-gray-700">
-                                CV Link
-                            </th>
-                            <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-gray-800 text-gray-300 border-gray-700">
-
+                                Time
                             </th>
                         </tr>
                     </thead>
@@ -67,7 +64,7 @@
                             $count = 0;
                         @endphp
 
-                        @foreach ($applications as $item)
+                        @foreach ($interviews as $item)
                             <tr>
                                 <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                                     <span class="ml-3 font-bold text-gray-900">
@@ -84,22 +81,10 @@
                                     {{ $item->position }}
                                 </td>
                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    {{ $item->status }}
+                                    {{ $item->interview_date }}
                                 </td>
                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <a href="{{ asset('cvs') }}/{{ $item->filename }}" target="_blank">
-                                        <span class="text-blue-700 hover:text-red-700">Download CV</span>
-                                    </a>
-                                </td>
-                                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                    <div class="flex space-x-2">
-                                        <a href="{{ route('admin-application-interview', $item->id) }}" class="bg-green-500 hover:bg-green-700 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                                            accept
-                                        </a>
-                                        <a href="{{ route('admin-application-decline', $item->id) }}" class="bg-red-500 hover:bg-red-700 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                                            decline
-                                        </a>
-                                    </div>
+                                        <span class="text-blue-700 hover:text-red-700">{{ $item->interview_time }}</span>
                                 </td>
                             </tr>
                         @endforeach
